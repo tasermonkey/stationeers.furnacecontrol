@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Language xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>English</Name>
+  <Code>EN</Code>
+  <Things>
+    <RecordThing>
+      <Key>CircuitboardFurnaceControl</Key>
+      <Value>Circuitboard (Furnace Control)</Value>
+      <Description>Runs an {THING:StructureAdvancedFurnace} from a {THING:StructureConsole}. Pick a recipe and how many ingots to make on the screen; the board heats the furnace with fuel, cools it with coolant, and holds it at the recipe's temperature and pressure. It shows how much more of each ore to add, and opens the furnace when the batch is done.
+
+{HEADER:Setting up}
+Use a {THING:ItemScrewdriver} on the console to see every device on its data network. Click a device to link it; click it again to move it to its next role, and once more past the last to unlink it. The board needs all of these:
+- the Advanced Furnace
+- two {THING:StructureVolumePump}s: fuel, then coolant
+- four {THING:StructurePipeAnalysizer}s: fuel line, coolant line, H2 into the mixer, O2 into the mixer
+- the {THING:StructureGasMixer} that makes the fuel (H2 in its input 1)
+- two {THING:StructureActiveVent}s in the furnace's box: one fills it, one empties it
+- the {THING:StructureGasSensor} in the box</Description>
+    </RecordThing>
+  </Things>
+</Language>

@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <AssemblyName>FurnaceControl</AssemblyName>
+    <RootNamespace>FurnaceControlMod</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <!-- The publicized game assembly needs it: the compiler then asks the runtime to skip access checks. -->
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <StationeersDirectory Condition="'$(StationeersDirectory)' == ''">C:\Program Files (x86)\Steam\steamapps\common\Stationeers\</StationeersDirectory>
+    <Managed>$(StationeersDirectory)rocketstation_Data\Managed\</Managed>
+    <!-- The game's local mods folder; the build copies the mod there. -->
+    <ModDirectory Condition="'$(ModDirectory)' == ''">$([System.Environment]::GetFolderPath(SpecialFolder.MyDocuments))\My Games\Stationeers\mods\FurnaceControl\</ModDirectory>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- The tests are their own project; they compile Logic\ themselves. -->
+    <Compile Remove="Tests\**" />
+    <None Remove="Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+    <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.2" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Publicized: the board reads the furnace's import slot and swaps the prefab's private fields. -->
+    <Reference Include="Assembly-CSharp" Publicize="true"><HintPath>$(Managed)Assembly-CSharp.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine"><HintPath>$(Managed)UnityEngine.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.CoreModule"><HintPath>$(Managed)UnityEngine.CoreModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.AnimationModule"><HintPath>$(Managed)UnityEngine.AnimationModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.UI"><HintPath>$(Managed)UnityEngine.UI.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.UIModule"><HintPath>$(Managed)UnityEngine.UIModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.TextRenderingModule"><HintPath>$(Managed)UnityEngine.TextRenderingModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Unity.TextMeshPro"><HintPath>$(Managed)Unity.TextMeshPro.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UniTask"><HintPath>$(Managed)UniTask.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="0Harmony"><HintPath>$(StationeersDirectory)BepInEx\core\0Harmony.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="BepInEx"><HintPath>$(StationeersDirectory)BepInEx\core\BepInEx.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="LaunchPadBooster"><HintPath>$(StationeersDirectory)BepInEx\plugins\StationeersLaunchPad\LaunchPadBooster.dll</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+
+  <Target Name="CopyToMods" AfterTargets="Build">
+    <ItemGroup>
+      <ModFiles Include="About\**\*;GameData\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(ModFiles)" DestinationFiles="@(ModFiles->'$(ModDirectory)%(RelativeDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ModDirectory)" SkipUnchangedFiles="true" />
+    <Message Importance="high" Text="FurnaceControl -> $(ModDirectory)" />
+  </Target>
+</Project>

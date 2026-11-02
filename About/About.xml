@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>Furnace Control</Name>
+  <ModID>tasermonkey.furnacecontrol</ModID>
+  <Author>tasermonkey</Author>
+  <Version>0.4.0</Version>
+  <!-- Steam description, with Steam's markup -->
+  <Description>[h1]Furnace Control[/h1]
+This is a Plugin Mod. It requires BepInEx with the StationeersLaunchPad plugin: https://github.com/StationeersLaunchPad/StationeersLaunchPad
+
+A console circuitboard that runs an Advanced Furnace instead of needing to use IC10.  I built this cause I felt like I have made enough versions
+of the Furnance Control IC10 scripts.
+[b]What this mod adds[/b]
+[list]
+[*] The [b]Circuitboard (Furnace Control)[/b], printed in the Electronics Printer. Put it in a Console on the furnace's data network.
+[/list]
+
+In multiplayer every player needs the mod.
+
+Some AI was used during the development of this mod, but the code and design decisions are mine.  The AI was used to help with some of the documentation and descriptions.
+  </Description>
+  <!-- In-game description, with TextMeshPro tags -->
+  <InGameDescription><![CDATA[<size="30"><color=#ffa500>Furnace Control</color></size>
+Adds the Circuitboard (Furnace Control), printed in the Electronics Printer.
+]]></InGameDescription>
+  <ChangeLog>
+  </ChangeLog>
+  <Tags>
+    <Tag>Logic</Tag>
+    <Tag>BepInEx</Tag>
+    <Tag>StationeersLaunchPad</Tag>
+  </Tags>
+</ModMetadata>
